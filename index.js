@@ -26,6 +26,38 @@ function christmasCountdown() {
 
   const displaySecond = Math.floor((diff%msInMinute)/msInSecond);
   document.querySelector(".seconds").textContent = displaySecond;
+
+  if (diff <= 0) {
+    document.querySelector(".days").textContent = 0;
+    document.querySelector(".hours").textContent = 0;
+    document.querySelector(".minutes").textContent = 0;
+    document.querySelector(".seconds").textContent = 0;
+    clearInterval(timerID); //чтобы наш счет останавливался, а не продолжался
+    merryChristmas();
+  }
+
+  
+  
 }
 
-christmasCountdown();
+let timerID = setInterval(christmasCountdown, 1000); //добавляем переменную let timerID, чтобы время больше не шло и помещаем её в метод clearInterval
+
+function merryChristmas() { //добавляем функцию, чтобы у нас менялся заголовок при наступлении рождества
+  const heading = document.querySelector("h1"); //выделяем заголовок
+  heading.textContent = "MERRY CHRISTMAS!!! HO-HO-HO!"; // меняем текст заголовка
+  heading.classList.add("red"); //создаем класс, чтобы задать ему стиль в CSS
+}
+
+const button = document.querySelector("#myButton"); //выделяем кнопку
+const audio = document.querySelector("#myAudio"); //выделяем песню
+
+button.addEventListener("click", function(){ //навешиваем событие на кнопку - при нажатии - играет музыка
+  if(audio.paused){
+    audio.play();
+    button.classList.toggle("pause");
+  }
+  else {
+    audio.pause();
+    button.classList.toggle("pause"); 
+  }
+})
